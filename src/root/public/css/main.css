@@ -50,16 +50,61 @@ body {
     width: 100%;
     background: #111;
     border: none;
-    padding: 15px;
-    padding-left: 0;
+    /* padding: 15px;
+    padding-left: 0; */
+    padding: 15px 0;
     color: #02b7b7;
     font-size: 24px;
     outline: none;
     font-family: 'VT323', 'Courier New', monospace;
     text-shadow: 0px 0px 4px;
+    display: inline-block;
+    width: auto;
+    caret-color: #111;
 }
+
+.fake-input {
+    text-transform: uppercase;
+    width: 100%;
+    background: #111;
+    border: none;
+    /* padding: 15px;
+    padding-left: 0; */
+    padding: 15px 0;
+    color: #02b7b7;
+    font-size: 24px;
+    outline: none;
+    font-family: 'VT323', 'Courier New', monospace;
+    text-shadow: 0px 0px 4px;
+    display: inline-block;
+    width: auto;
+    caret-color: #111;
+}
+.fake-input::selection {
+    color: #111;
+    background-color: #02b7b7;
+}
+
+
 
 .input::selection {
     color: #111;
     background-color: #02b7b7;
+}
+
+.cursor {
+  height: 24px;
+  vertical-align: middle;
+  /*margin-left: -10px;*/
+  width: 10px;
+  background-color: #02b7b7;
+  opacity: 1;
+  display: inline-block;
+  transition: opacity ease-in-out 0.5s;
+  box-shadow: 0px 0px 4px;
+  margin-top: -5px;
+}
+
+.hide {
+  opacity: 0;
 }

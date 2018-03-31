@@ -6,7 +6,7 @@ angular.module('UncleApp', ['ngRoute'])
         }
     }
 })
-.controller('UncleController', function($scope, UncleFactory){
+.controller('UncleController', function($scope, $interval, UncleFactory){
     console.log('uncle loaded.');
     $scope.message = {
         text: '',
@@ -16,6 +16,14 @@ angular.module('UncleApp', ['ngRoute'])
 
     $scope.input = angular.element('#input');
     $scope.input.focus();
+    var cursor_blink = $interval(function () {
+        $scope.hide_cursor = !$scope.hide_cursor;
+      }, 500);
+
+    $scope.focus = function(){
+        console.log('focusing', $scope.input);
+        $scope.input.focus();
+    };
 
     $scope.listenKey = function(evt){
         // console.log('keypress', evt.keyCode);

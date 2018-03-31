@@ -23,7 +23,7 @@
           <h1 class="header">
               WELCOME TO THE U.N.C.L.E. SYSTEM
           </h1>
-          <div class="console">
+          <div class="console" ng-click="focus()">
               <div ng-repeat="msg in past_messages">
                   <div class="message">
                       {{msg.text | uppercase}}
@@ -33,7 +33,10 @@
                   </div>
               </div>
               <div class="input-container">
-                 <span class="prompt">></span> <input class="input" id="input" ng-model="message.text" />
+                 <span class="prompt">></span><div class="fake-input">
+                     {{message.text}}
+                 </div><span class="cursor" ng-class="{'hide': hide_cursor}"></span>
+                  <input ng-blur="focus()" ng-class="{hide: true}" class="input" id="input" ng-model="message.text" />
               </div>
           </div>
       </div>
