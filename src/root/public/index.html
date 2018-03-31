@@ -19,7 +19,7 @@
     <base href="/" />
   </head>
   <body>
-      <div ng-controller="UncleController" ng-keydown="listenKey($event)">
+      <div ng-controller="UncleController" ng-keydown="listenKey($event)" ng-cloak>
           <h1 class="header">
               WELCOME TO THE U.N.C.L.E. SYSTEM
           </h1>
@@ -32,9 +32,9 @@
                       {{msg.response}} <span ng-show="msg.response == ''">...</span>
                   </div>
               </div>
-              <!-- <div class="input"> -->
-                  <input class="input" id="input" ng-model="message.text" />
-              <!-- </div> -->
+              <div class="input-container">
+                 <span class="prompt">></span> <input class="input" id="input" ng-model="message.text" />
+              </div>
           </div>
       </div>
   </body>

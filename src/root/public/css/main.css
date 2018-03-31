@@ -11,14 +11,24 @@ body {
 .console {
     width: 100%;
     padding: 0 1%;
+    position: relative;
 }
 
 .message {
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 
 .response {
     color: #f6a932;
+}
+
+.input-container {
+    position: relative;
+}
+
+.prompt {
+    position: absolute;
+    top: 15px;
 }
 
 
