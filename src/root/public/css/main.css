@@ -113,3 +113,9 @@ body {
     text-align: center;
     margin-top: 25vh;
 }
+
+.glitch {
+    position: absolute;
+    opacity: .5;
+    width: 200vw;
+}

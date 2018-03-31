@@ -14,6 +14,7 @@ angular.module('UncleApp', ['ngRoute'])
     };
     $scope.past_messages = [];
     $scope.show_loader = false;
+    $scope.show_glitch = false;
     // $scope.show_loader = true;
 
     $scope.input = angular.element('#input');
@@ -34,6 +35,13 @@ angular.module('UncleApp', ['ngRoute'])
         }
     };
 
+    $scope.showGlitch = function(){
+        $scope.show_glitch = true;
+        $timeout(function(){
+            $scope.show_glitch = false;
+        }, 500);
+    };
+
     $scope.sendMessage = function(){
         if($scope.message.text.toLowerCase() == "load gif") {
             $scope.show_loader = true;
@@ -45,8 +53,10 @@ angular.module('UncleApp', ['ngRoute'])
                 $scope.show_loader = false;
             }, 5000)
         } else {
+            $scope.showGlitch();
             UncleFactory.sendMessage($scope.message.text).then(function(resp){
                 console.log('received', resp);
+                $scope.showGlitch();
                 $scope.message.response = resp.data;
                 $scope.past_messages.push($scope.message);
                 $scope.message = {
