@@ -56,28 +56,24 @@ router.get('/message/:message', function(req, res, next){
     // });
 });
 
-// starts a new conversation with the assistant
-const startConversation = (conversation) => {
-    var d = q.defer();
-
-  conversation
-    .on('response', (text) => {
-        console.log('Assistant Response:', text)
-        d.resolve(text);
-    })
-    .on('ended', (error, continueConversation) => {
-      // once the conversation is ended, see if we need to follow up
-      if (error) console.log('Conversation Ended Error:', error);
-      else if (continueConversation) assistant.start();
-      else console.log('Conversation Complete');
-    })
-    .on('error', (error) => {
-        console.log('assistant error', error);
-        d.reject(err);
-    });
-
-    return d.promise;
-};
+// // starts a new conversation with the assistant
+// const startConversation = (conversation) => {
+//   conversation
+//     .on('response', (text) => {
+//         console.log('Assistant Response:', text)
+//         d.resolve(text);
+//     })
+//     .on('ended', (error, continueConversation) => {
+//       // once the conversation is ended, see if we need to follow up
+//       if (error) console.log('Conversation Ended Error:', error);
+//       else if (continueConversation) assistant.start();
+//       else console.log('Conversation Complete');
+//     })
+//     .on('error', (error) => {
+//         console.log('assistant error', error);
+//         d.reject(err);
+//     });
+// };
 
 // will start a conversation and wait for audio data
 // as soon as it's ready

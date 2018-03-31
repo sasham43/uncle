@@ -6,13 +6,15 @@ angular.module('UncleApp', ['ngRoute'])
         }
     }
 })
-.controller('UncleController', function($scope, $interval, UncleFactory){
+.controller('UncleController', function($scope, $interval, $timeout, UncleFactory){
     console.log('uncle loaded.');
     $scope.message = {
         text: '',
         response: ''
     };
     $scope.past_messages = [];
+    $scope.show_loader = false;
+    // $scope.show_loader = true;
 
     $scope.input = angular.element('#input');
     $scope.input.focus();
@@ -33,16 +35,28 @@ angular.module('UncleApp', ['ngRoute'])
     };
 
     $scope.sendMessage = function(){
-        UncleFactory.sendMessage($scope.message.text).then(function(resp){
-            console.log('received', resp);
-            $scope.message.response = resp.data;
-            $scope.past_messages.push($scope.message);
+        if($scope.message.text.toLowerCase() == "load gif") {
+            $scope.show_loader = true;
             $scope.message = {
                 text: '',
                 response: ''
             };
-        }, function(err){
-            console.log('err', err);
-        });
+            $timeout(function(){
+                $scope.show_loader = false;
+            }, 5000)
+        } else {
+            UncleFactory.sendMessage($scope.message.text).then(function(resp){
+                console.log('received', resp);
+                $scope.message.response = resp.data;
+                $scope.past_messages.push($scope.message);
+                $scope.message = {
+                    text: '',
+                    response: ''
+                };
+            }, function(err){
+                console.log('err', err);
+            });
+        }
+
     };
 })
