@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
     <script src="js/components/angular.min.js"></script>
     <script src="js/components/angular-route.min.js"></script>
     <!-- <script src="js/components/dirPagination.js"></script> -->
@@ -25,12 +29,12 @@
                       {{msg.text}}
                   </div>
                   <div class="response">
-                      {{msg.response}}
+                      {{msg.response}} <span ng-show="msg.response == ''">...</span>
                   </div>
               </div>
-              <div class="input">
-                  <input ng-model="message.text" />
-              </div>
+              <!-- <div class="input"> -->
+                  <input class="input" id="input" ng-model="message.text" />
+              <!-- </div> -->
           </div>
       </div>
   </body>

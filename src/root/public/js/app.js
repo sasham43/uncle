@@ -14,6 +14,9 @@ angular.module('UncleApp', ['ngRoute'])
     };
     $scope.past_messages = [];
 
+    $scope.input = angular.element('#input');
+    $scope.input.focus();
+
     $scope.listenKey = function(evt){
         // console.log('keypress', evt.keyCode);
         if(evt.keyCode == 13){
