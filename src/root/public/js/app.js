@@ -1,4 +1,4 @@
-angular.module('UncleApp', ['ngRoute'])
+angular.module('UncleApp', ['ngRoute','luegg.directives'])
 .factory('UncleFactory', function($http){
     return {
         sendMessage: function(message){
@@ -6,7 +6,7 @@ angular.module('UncleApp', ['ngRoute'])
         }
     }
 })
-.controller('UncleController', function($scope, $interval, $timeout, UncleFactory){
+.controller('UncleController', function($scope, $interval, $timeout, $anchorScroll, $location, UncleFactory){
     console.log('uncle loaded.');
     $scope.message = {
         text: '',
@@ -24,7 +24,7 @@ angular.module('UncleApp', ['ngRoute'])
       }, 500);
 
     $scope.focus = function(){
-        console.log('focusing', $scope.input);
+        // console.log('focusing', $scope.input);
         $scope.input.focus();
     };
 
@@ -55,14 +55,24 @@ angular.module('UncleApp', ['ngRoute'])
         } else {
             $scope.showGlitch();
             UncleFactory.sendMessage($scope.message.text).then(function(resp){
-                console.log('received', resp);
+                // console.log('received', resp);
                 $scope.showGlitch();
                 $scope.message.response = resp.data;
                 $scope.past_messages.push($scope.message);
                 $scope.message = {
-                    text: '',
+                    text: ' ',
                     response: ''
                 };
+                $scope.glue = true;
+                // $scope.focus();
+                // $location.hash('input')
+                // $anchorScroll()
+                // $timeout(function() {
+                //   var scroller = angular.element("#main");
+                //   console.log('scroller', scroller.scrollTop(), scroller[0].scrollHeight);
+                //   scroller.scrollTop = scroller[0].scrollHeight;
+                //   // scroller.scrollTop(scroller[0].scrollHeight)
+                // });
             }, function(err){
                 console.log('err', err);
             });

@@ -41,7 +41,7 @@ router.get('/message/:message', function(req, res, next){
             // once the conversation is ended, see if we need to follow up
             if (error) console.log('Conversation Ended Error:', error);
             else if (continueConversation) assistant.start();
-            else console.log('Conversation Complete');
+            else console.log('Conversation Complete', continueConversation);
           })
           .on('error', (error) => {
               console.log('assistant error', error);

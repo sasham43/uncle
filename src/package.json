@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angularjs-scroll-glue": "^2.2.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "google-assistant": "^0.2.2",
