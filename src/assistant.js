@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var q = require('q');
 const path = require('path');
 const GoogleAssistant = require('google-assistant');
 const config = {
@@ -29,35 +30,40 @@ router.get('/message/:message', function(req, res, next){
     // start the conversation
     console.log('conversating', req.params.message);
     config.conversation.textQuery = req.params.message;
-    assistant.start(config.conversation, startConversation);
+    assistant.start(config.conversation, (conversation) => {
+        conversation
+          .on('response', (text) => {
+              console.log('Assistant Response:', text)
+              // d.resolve(text);
+              res.status(200).send(text);
+          })
+          .on('ended', (error, continueConversation) => {
+            // once the conversation is ended, see if we need to follow up
+            if (error) console.log('Conversation Ended Error:', error);
+            else if (continueConversation) assistant.start();
+            else console.log('Conversation Complete');
+          })
+          .on('error', (error) => {
+              console.log('assistant error', error);
+              // d.reject(err);
+              next(err);
+          });
+    })
+    // .then(function(resp){
+    //     res.status(200).send(resp);
+    // }).catch(function(err){
+    //     return next(err);
+    // });
 });
 
 // starts a new conversation with the assistant
 const startConversation = (conversation) => {
-  // setup the conversation and send data to it
-  // for a full example, see `examples/mic-speaker.js`
+    var d = q.defer();
 
   conversation
-    .on('response', text => console.log('Assistant Response:', text))
-    .on('audio-data', (data) => {
-      // do stuff with the audio data from the server
-      // usually send it to some audio output / file
-    })
-    .on('end-of-utterance', () => {
-      // do stuff when done speaking to the assistant
-      // usually just stop your audio input
-    })
-    .on('transcription', (data) => {
-      // do stuff with the words you are saying to the assistant
-    })
     .on('response', (text) => {
-      // do stuff with the text that the assistant said back
-    })
-    .on('volume-percent', (percent) => {
-      // do stuff with a volume percent change (range from 1-100)
-    })
-    .on('device-action', (action) => {
-      // if you've set this device up to handle actions, you'll get that here
+        console.log('Assistant Response:', text)
+        d.resolve(text);
     })
     .on('ended', (error, continueConversation) => {
       // once the conversation is ended, see if we need to follow up
@@ -65,7 +71,12 @@ const startConversation = (conversation) => {
       else if (continueConversation) assistant.start();
       else console.log('Conversation Complete');
     })
-    .on('error', error => console.error(error));
+    .on('error', (error) => {
+        console.log('assistant error', error);
+        d.reject(err);
+    });
+
+    return d.promise;
 };
 
 // will start a conversation and wait for audio data

@@ -15,7 +15,7 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.past_messages = [];
 
     $scope.listenKey = function(evt){
-        console.log('keypress', evt.keyCode);
+        // console.log('keypress', evt.keyCode);
         if(evt.keyCode == 13){
             $scope.sendMessage();
         }
@@ -23,7 +23,8 @@ angular.module('UncleApp', ['ngRoute'])
 
     $scope.sendMessage = function(){
         UncleFactory.sendMessage($scope.message.text).then(function(resp){
-            $scope.message.resp = resp;
+            console.log('received', resp);
+            $scope.message.response = resp.data;
             $scope.past_messages.push($scope.message);
             $scope.message = {
                 text: '',
