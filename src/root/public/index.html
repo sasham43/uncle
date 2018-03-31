@@ -26,7 +26,7 @@
           <div class="console">
               <div ng-repeat="msg in past_messages">
                   <div class="message">
-                      {{msg.text}}
+                      {{msg.text | uppercase}}
                   </div>
                   <div class="response">
                       {{msg.response}} <span ng-show="msg.response == ''">...</span>

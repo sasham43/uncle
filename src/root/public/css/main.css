@@ -18,8 +18,18 @@ body {
     margin: 15px 0;
 }
 
+.message::selection {
+    color: #111;
+    background-color: #02b7b7;
+}
+
 .response {
     color: #f6a932;
+}
+
+.response::selection {
+    background-color: #f6a932;
+    color: #111;
 }
 
 .input-container {
@@ -29,10 +39,11 @@ body {
 .prompt {
     position: absolute;
     top: 15px;
+    left: -15px;
 }
 
-
 .input {
+    text-transform: uppercase;
     width: 100%;
     background: #111;
     border: none;
@@ -42,4 +53,9 @@ body {
     font-size: 24px;
     outline: none;
     font-family: 'VT323', 'Courier New', monospace;
+}
+
+.input::selection {
+    color: #111;
+    background-color: #02b7b7;
 }
