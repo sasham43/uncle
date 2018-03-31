@@ -4,11 +4,7 @@ var bodyParser = require('body-parser');
 var config = require('./config').get();
 
 var root = require('./root');
-// var works = require('./works');
-// var sentiment = require('./sentiment');
-
-// var dbconn = require('./db');
-// dbconn('gallery-db');
+var assistant = require('./assistant');
 
 var app = express();
 
@@ -20,20 +16,9 @@ app.use(bodyParser.json({
   limit: '50mb'
 }));
 
-// require('./auth.js')(app, config);
-
 var listenPort = process.env.PORT || 3001;
 
-app.use('/api',function(req, res, next){
-  console.log('get url', req.url)
-  // dbconn('gallery-db', req.url).then(function(db){
-  //   req.db = db;
-  //   next();
-  // });
-});
-
-// app.use('/api/sentiment',sentiment);
-// app.use('/api/works',works);
+app.use('/assistant', assistant);
 app.use('/', root);
 
 app.use(function(err, req, res, next){
