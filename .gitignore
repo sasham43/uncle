@@ -1,2 +1,5 @@
 .DS_Store
 src/node_modules
+src/config/credentials.json
+src/credentials.json
+src/tokens.json
