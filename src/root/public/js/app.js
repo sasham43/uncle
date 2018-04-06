@@ -1,4 +1,4 @@
-angular.module('UncleApp', ['ngRoute','luegg.directives'])
+angular.module('UncleApp', ['ngRoute'])
 .factory('UncleFactory', function($http){
     return {
         sendMessage: function(message){
@@ -53,30 +53,44 @@ angular.module('UncleApp', ['ngRoute','luegg.directives'])
                 $scope.show_loader = false;
             }, 5000)
         } else {
-            $scope.showGlitch();
+            // $scope.showGlitch();
             UncleFactory.sendMessage($scope.message.text).then(function(resp){
                 // console.log('received', resp);
-                $scope.showGlitch();
+                // $scope.showGlitch();
                 $scope.message.response = resp.data;
-                $scope.past_messages.push($scope.message);
-                $scope.message = {
-                    text: ' ',
-                    response: ''
-                };
-                $scope.glue = true;
-                // $scope.focus();
-                // $location.hash('input')
-                // $anchorScroll()
-                // $timeout(function() {
-                //   var scroller = angular.element("#main");
-                //   console.log('scroller', scroller.scrollTop(), scroller[0].scrollHeight);
-                //   scroller.scrollTop = scroller[0].scrollHeight;
-                //   // scroller.scrollTop(scroller[0].scrollHeight)
-                // });
+                // $scope.past_messages.push($scope.message);
+                // $scope.message = {
+                //     text: ' ',
+                //     response: ''
+                // };
+                $scope.processResponse();
             }, function(err){
                 console.log('err', err);
             });
         }
+    };
 
+    $scope.processResponse = function(){
+        var new_message = {
+            text: $scope.message.text,
+            response: ''
+        };
+        $scope.past_messages.push(new_message);
+        var last_message = $scope.past_messages[$scope.past_messages.length - 1];
+
+        for (var i = 0; i < $scope.message.response.length; i++) {
+            // var char = $scope.message.response.charAt(i);
+            // last_message.response += char;
+            $timeout(function(){
+                var char = $scope.message.response.charAt(i);
+                last_message.response += char;
+                console.log('last_message', last_message);
+            },500)
+        }
+
+        $scope.message = {
+            text: '',
+            response: ''
+        };
     };
 })
