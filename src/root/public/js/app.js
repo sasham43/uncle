@@ -57,40 +57,45 @@ angular.module('UncleApp', ['ngRoute'])
             UncleFactory.sendMessage($scope.message.text).then(function(resp){
                 // console.log('received', resp);
                 // $scope.showGlitch();
-                $scope.message.response = resp.data;
+                // $scope.message.response = resp.data;
                 // $scope.past_messages.push($scope.message);
                 // $scope.message = {
                 //     text: ' ',
                 //     response: ''
                 // };
-                $scope.processResponse();
+                $scope.processResponse($scope.message.text, resp.data);
             }, function(err){
                 console.log('err', err);
             });
         }
     };
 
-    $scope.processResponse = function(){
-        var new_message = {
-            text: $scope.message.text,
+    $scope.processResponse = function(text, response){
+        $scope.last_message = {
+            text: text,
             response: ''
         };
-        $scope.past_messages.push(new_message);
-        var last_message = $scope.past_messages[$scope.past_messages.length - 1];
 
-        for (var i = 0; i < $scope.message.response.length; i++) {
-            // var char = $scope.message.response.charAt(i);
-            // last_message.response += char;
+        console.log('response', response);
+
+        console.log('53', response.charAt(53));
+        console.log('22', response.charAt(22))
+
+        var count = 0;
+        var wait_count = 0;
+        for (var i = 0; i < response.length; i++) {
+            wait_count += 100;
             $timeout(function(){
-                var char = $scope.message.response.charAt(i);
-                last_message.response += char;
-                console.log('last_message', last_message);
-            },500)
+                var char = response.charAt(count);
+                // console.log('char', i);
+                $scope.last_message.response += char;
+                count++;
+            }, wait_count)
         }
 
-        $scope.message = {
-            text: '',
-            response: ''
-        };
+        // $scope.message = {
+        //     text: '',
+        //     response: ''
+        // };
     };
 })
