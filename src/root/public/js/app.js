@@ -15,7 +15,19 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.past_messages = [];
     $scope.show_loader = false;
     $scope.show_glitch = false;
-    // $scope.show_loader = true;
+    
+    $scope.showGif = function(){
+        $scope.show_loader = true;
+        $scope.message = {
+            text: '',
+            response: ''
+        };
+        $timeout(function(){
+            $scope.show_loader = false;
+        }, 5000)
+    };
+
+
     $scope.commands = [
         {
             text: 'load gif',
@@ -30,6 +42,7 @@ angular.module('UncleApp', ['ngRoute'])
             response: 'I give you information.'
         }
     ];
+
 
     $scope.input = angular.element('#input');
     $scope.input.focus();
@@ -56,17 +69,6 @@ angular.module('UncleApp', ['ngRoute'])
         }, 500);
     };
 
-    $scope.showGif = function(){
-        $scope.show_loader = true;
-        $scope.message = {
-            text: '',
-            response: ''
-        };
-        $timeout(function(){
-            $scope.show_loader = false;
-        }, 5000)
-    }
-
     $scope.sendMessage = function(){
         var command = $scope.commands.find(function(cmd){
             if($scope.message.text.toLowerCase() == cmd.text){
@@ -75,6 +77,7 @@ angular.module('UncleApp', ['ngRoute'])
         });
 
         if(command){
+            console.log('type of ', typeof command.response);
             if(typeof command.response == 'function') {
                 command.response();
             } else {
