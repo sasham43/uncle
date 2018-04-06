@@ -36,20 +36,12 @@
               WELCOME TO THE U.N.C.L.E. SYSTEM
           </h1>
           <div class="console" id="console" ng-click="focus()" ng-hide="show_loader">
-              <div ng-show="!$last" ng-repeat="msg in past_messages">
+              <div ng-repeat="msg in past_messages">
                   <div class="message">
                       {{msg.text | uppercase}}
                   </div>
                   <div class="response">
                       {{msg.response}} <span ng-show="msg.response == ''">...</span>
-                  </div>
-              </div>
-              <div class="last-message">
-                  <div class="message">
-                      {{last_message.text}}
-                  </div>
-                  <div class="response">
-                      {{last_message.response}}
                   </div>
               </div>
               <div class="input-container">
