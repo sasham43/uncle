@@ -70,13 +70,28 @@ angular.module('UncleApp', ['ngRoute'])
         }
     };
 
+    $scope.playAudio = function(){
+        $scope.audio = new Audio('audio/keys.mp3');
+        $scope.audio.loop = true;
+        $scope.audio.play();
+        console.log('audio', $scope.audio)
+    };
+
+    $scope.stopAudio = function(){
+        console.log('trying to stop');
+        // $scope.audio.stop();
+        $scope.audio.pause();
+        $scope.audio.currentTime = 0;
+    };
+
     $scope.processResponse = function(text, response){
+        $scope.playAudio();
         $scope.last_message = {
             text: text,
             response: ''
         };
 
-        console.log('response', response);
+        console.log('response', response.length);
 
         var count = 0;
         var wait_count = 0;
@@ -87,6 +102,10 @@ angular.module('UncleApp', ['ngRoute'])
                 $scope.last_message.response += char;
                 count++;
                 window.scrollTo(0,document.body.scrollHeight);
+                if(count == response.length){
+                    $scope.stopAudio();
+                    $scope.past_messages.push($scope.last_message);
+                }
             }, wait_count)
         }
 
