@@ -78,24 +78,21 @@ angular.module('UncleApp', ['ngRoute'])
 
         console.log('response', response);
 
-        console.log('53', response.charAt(53));
-        console.log('22', response.charAt(22))
-
         var count = 0;
         var wait_count = 0;
         for (var i = 0; i < response.length; i++) {
-            wait_count += 100;
+            wait_count += 50;
             $timeout(function(){
                 var char = response.charAt(count);
-                // console.log('char', i);
                 $scope.last_message.response += char;
                 count++;
+                window.scrollTo(0,document.body.scrollHeight);
             }, wait_count)
         }
 
-        // $scope.message = {
-        //     text: '',
-        //     response: ''
-        // };
+        $scope.message = {
+            text: '',
+            response: ''
+        };
     };
 })
