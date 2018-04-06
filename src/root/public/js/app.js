@@ -135,7 +135,7 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.processResponse = function(text, response){
         $scope.playAudio();
         $scope.last_message = {
-            text: text,
+            text: text.toUpperCase(),
             response: ''
         };
 
