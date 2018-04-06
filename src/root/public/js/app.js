@@ -16,6 +16,20 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.show_loader = false;
     $scope.show_glitch = false;
     // $scope.show_loader = true;
+    $scope.commands = [
+        {
+            text: 'load gif',
+            response: $scope.showGif
+        },
+        {
+            text: 'who are you?',
+            response: 'I am U.N.C.L.E., an intelligent cyber presence designed to give you information.'
+        },
+        {
+            text: 'what do you do?',
+            response: 'I give you information.'
+        }
+    ];
 
     $scope.input = angular.element('#input');
     $scope.input.focus();
@@ -42,8 +56,31 @@ angular.module('UncleApp', ['ngRoute'])
         }, 500);
     };
 
+    $scope.showGif = function(){
+        $scope.show_loader = true;
+        $scope.message = {
+            text: '',
+            response: ''
+        };
+        $timeout(function(){
+            $scope.show_loader = false;
+        }, 5000)
+    }
+
     $scope.sendMessage = function(){
-        if($scope.message.text.toLowerCase() == "load gif") {
+        var command = $scope.commands.find(function(cmd){
+            if($scope.message.text.toLowerCase() == cmd.text){
+                return true;
+            }
+        });
+
+        if(command){
+            if(typeof command.response == 'function') {
+                command.response();
+            } else {
+                $scope.processResponse($scope.message.text, command.response);
+            }
+        } else if($scope.message.text.toLowerCase() == "load gif") {
             $scope.show_loader = true;
             $scope.message = {
                 text: '',
@@ -90,8 +127,6 @@ angular.module('UncleApp', ['ngRoute'])
             text: text,
             response: ''
         };
-
-        console.log('response', response.length);
 
         var count = 0;
         var wait_count = 0;
