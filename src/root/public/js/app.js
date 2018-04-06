@@ -15,7 +15,7 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.past_messages = [];
     $scope.show_loader = false;
     $scope.show_glitch = false;
-    
+
     $scope.showGif = function(){
         $scope.show_loader = true;
         $scope.message = {
@@ -40,6 +40,14 @@ angular.module('UncleApp', ['ngRoute'])
         {
             text: 'what do you do?',
             response: 'I give you information.'
+        },
+        {
+            text: 'what does uncle stand for?',
+            response: 'U.N.C.L.E. stands for Unified Nexus Command Line Executor.'
+        },
+        {
+            text: 'who created you?',
+            response: 'I was created by Dr. Simon Brogueman who wanted to live forever and attempted to implant his consciousness into silicon.'
         }
     ];
 
