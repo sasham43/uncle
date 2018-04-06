@@ -14,6 +14,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "google-assistant": "^0.2.2",
+    "nconf": "^0.10.0",
     "q": "^1.5.1"
   }
 }
