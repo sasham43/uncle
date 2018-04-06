@@ -15,6 +15,8 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.past_messages = [];
     $scope.show_loader = false;
     $scope.show_glitch = false;
+    $scope.audio = new Audio('audio/keys.mp3');
+    $scope.audio.loop = true;
 
     $scope.showGif = function(){
         $scope.show_loader = true;
@@ -47,7 +49,7 @@ angular.module('UncleApp', ['ngRoute'])
         },
         {
             text: 'who created you?',
-            response: 'I was created by Dr. Simon Brogueman who wanted to live forever and attempted to implant his consciousness into silicon.'
+            response: 'I was created by Dr. Simon Brogueman who wanted to live forever and attempted to implant his consciousness into silicon.  The attempt proved fatal.'
         }
     ];
 
@@ -117,15 +119,10 @@ angular.module('UncleApp', ['ngRoute'])
     };
 
     $scope.playAudio = function(){
-        $scope.audio = new Audio('audio/keys.mp3');
-        $scope.audio.loop = true;
         $scope.audio.play();
-        console.log('audio', $scope.audio)
     };
 
     $scope.stopAudio = function(){
-        console.log('trying to stop');
-        // $scope.audio.stop();
         $scope.audio.pause();
         $scope.audio.currentTime = 0;
     };
