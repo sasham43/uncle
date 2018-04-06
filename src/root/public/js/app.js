@@ -59,7 +59,6 @@ angular.module('UncleApp', ['ngRoute'])
       }, 500);
 
     $scope.focus = function(){
-        // console.log('focusing', $scope.input);
         $scope.input.focus();
     };
 
@@ -85,7 +84,6 @@ angular.module('UncleApp', ['ngRoute'])
         });
 
         if(command){
-            console.log('type of ', typeof command.response);
             if(typeof command.response == 'function') {
                 command.response();
             } else {
@@ -138,6 +136,7 @@ angular.module('UncleApp', ['ngRoute'])
             text: text.toUpperCase(),
             response: ''
         };
+        $scope.past_messages.push($scope.last_message);
 
         var count = 0;
         var wait_count = 0;
@@ -150,7 +149,7 @@ angular.module('UncleApp', ['ngRoute'])
                 window.scrollTo(0,document.body.scrollHeight);
                 if(count == response.length){
                     $scope.stopAudio();
-                    $scope.past_messages.push($scope.last_message);
+                    // $scope.past_messages.push($scope.last_message);
                 }
             }, wait_count)
         }
