@@ -27,6 +27,8 @@ angular.module('UncleApp', ['ngRoute'])
         $timeout(function(){
             $scope.show_loader = false;
         }, 5000)
+
+        $scope.focus();
     };
 
 
@@ -101,10 +103,10 @@ angular.module('UncleApp', ['ngRoute'])
                 $scope.show_loader = false;
             }, 5000)
         } else {
-            // $scope.showGlitch();
+            $scope.showGlitch();
             UncleFactory.sendMessage($scope.message.text).then(function(resp){
                 // console.log('received', resp);
-                // $scope.showGlitch();
+                $scope.showGlitch();
                 // $scope.message.response = resp.data;
                 // $scope.past_messages.push($scope.message);
                 // $scope.message = {
