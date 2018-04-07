@@ -6,7 +6,14 @@ angular.module('UncleApp', ['ngRoute'])
         }
     }
 })
-.controller('UncleController', function($scope, $interval, $timeout, $anchorScroll, $location, UncleFactory){
+.factory('VideoFactory', function($http){
+    return {
+        getVideos: function(){
+            return $http.get('/videos/');
+        }
+    }
+})
+.controller('UncleController', function($scope, $interval, $timeout, $anchorScroll, $location, UncleFactory, VideoFactory){
     console.log('uncle loaded.');
     $scope.message = {
         text: '',
@@ -17,6 +24,13 @@ angular.module('UncleApp', ['ngRoute'])
     $scope.show_glitch = false;
     $scope.audio = new Audio('audio/keys.mp3');
     $scope.audio.loop = true;
+
+    VideoFactory.getVideos().then(function(resp){
+        console.log('resp', resp);
+        $scope.videos = resp.data;
+    }).catch(function(err){
+        console.log('err', err);
+    });
 
     $scope.showGif = function(){
         $scope.show_loader = true;
@@ -41,8 +55,33 @@ angular.module('UncleApp', ['ngRoute'])
         // $scope.focus();
     };
 
+    // $scope.show_video = true;
+    $scope.playVideo = function(){
+        var index = getRandomInt(3);
+
+        $scope.video_src = 'videos/' + $scope.videos[index];
+        // $scope.video = new Video('videos/' + $scope.video_src);
+        $scope.video = angular.element('#video').get(0);
+        console.log('video', index);
+        $scope.video.src = $scope.video_src;
+        $scope.video.play();
+        $scope.show_video = true;
+        $scope.message = {
+            text: '',
+            response: ''
+        };
+        $timeout(function(){
+            $scope.show_video = false;
+            $scope.focus();
+        }, 10000);
+    };
+
 
     $scope.commands = [
+        {
+            text: 'hack',
+            response: $scope.playVideo
+        },
         {
             text: 'load',
             response: $scope.loadUNCLE
@@ -82,11 +121,14 @@ angular.module('UncleApp', ['ngRoute'])
 
     $scope.focus = function(){
         // $scope.input.focus();
-        $scope.input.get(0).focus();
+        $timeout(function(){
+            $scope.input.get(0).focus();
+
+        })
     };
 
     $scope.listenKey = function(evt){
-        console.log('keypress', evt.keyCode);
+        // console.log('keypress', evt.keyCode);
         // if(evt.keyCode == 13){
         //     $scope.sendMessage();
         // } else if ()
@@ -186,3 +228,7 @@ angular.module('UncleApp', ['ngRoute'])
         };
     };
 })
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}

@@ -1,11 +1,11 @@
-// require("dotenv").config();
+require("dotenv").config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config').get();
 
 var root = require('./root');
 var assistant = require('./assistant');
-// var fake_assistant = require('./fake');
+var videos = require('./videos');
 
 var app = express();
 
@@ -19,8 +19,8 @@ app.use(bodyParser.json({
 
 var listenPort = process.env.PORT || 3000;
 
+app.use('/videos', videos);
 app.use('/assistant', assistant);
-// app.use('/assistant', fake_assistant);
 app.use('/', root);
 
 app.use(function(err, req, res, next){

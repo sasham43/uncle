@@ -32,10 +32,10 @@
           <div class="glitch-container" ng-show="show_glitch">
               <img class="glitch" src="images/vhs_trans.gif" />
           </div>
-          <!-- <h1 class="header" ng-hide="show_loader">
-              WELCOME TO THE U.N.C.L.E. SYSTEM
-          </h1> -->
-          <div class="console" id="console" ng-click="focus()" ng-hide="show_loader">
+
+          <video id="video" ng-show="show_video" loop="true" autoplay="true"></video>
+
+          <div class="console" id="console" ng-click="focus()" ng-hide="show_loader || show_video">
               <div ng-repeat="msg in past_messages">
                   <div class="message">
                       {{msg.text | uppercase}}

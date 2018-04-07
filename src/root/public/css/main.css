@@ -82,7 +82,7 @@ body {
     text-shadow: 0px 0px 4px;
     display: inline-block;
     width: auto;
-    caret-color: #111;
+    /* caret-color: #111; */
 }
 .fake-input::selection {
     color: #111;
