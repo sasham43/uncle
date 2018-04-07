@@ -116,6 +116,7 @@ body {
 .loader-container {
     /* text-align: center;
     margin-top: 25vh; */
+    margin-left: -80px;
 }
 
 .glitch {
