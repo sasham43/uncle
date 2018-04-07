@@ -31,8 +31,22 @@ angular.module('UncleApp', ['ngRoute'])
         $scope.focus();
     };
 
+    $scope.loadUNCLE = function(){
+        var welcome = 'Welcome to the U.N.C.L.E. system.  Type a question to get started';
+        $scope.showGif();
+        $timeout(function(){
+            $scope.processResponse('', welcome);
+            $scope.focus();
+        }, 5000);
+        // $scope.focus();
+    };
+
 
     $scope.commands = [
+        {
+            text: 'load',
+            response: $scope.loadUNCLE
+        },
         {
             text: 'load gif',
             response: $scope.showGif
@@ -52,6 +66,10 @@ angular.module('UncleApp', ['ngRoute'])
         {
             text: 'who created you?',
             response: 'I was created by Dr. Simon Brogueman who wanted to live forever and attempted to implant his consciousness into silicon.  The attempt proved fatal.'
+        },
+        {
+            text: 'mono no aware',
+            response: 'The sad beauty of seeing time pass — the aching awareness of impermanence. These are the days that we will return to one day in the future only in memories.'
         }
     ];
 
@@ -63,13 +81,22 @@ angular.module('UncleApp', ['ngRoute'])
       }, 500);
 
     $scope.focus = function(){
-        $scope.input.focus();
+        // $scope.input.focus();
+        $scope.input.get(0).focus();
     };
 
     $scope.listenKey = function(evt){
-        // console.log('keypress', evt.keyCode);
-        if(evt.keyCode == 13){
-            $scope.sendMessage();
+        console.log('keypress', evt.keyCode);
+        // if(evt.keyCode == 13){
+        //     $scope.sendMessage();
+        // } else if ()
+        switch (evt.keyCode){
+            case 13:
+                $scope.sendMessage();
+                break;
+            case 48:
+                $scope.focus();
+                break;
         }
     };
 
