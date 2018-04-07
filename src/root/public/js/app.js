@@ -72,6 +72,7 @@ angular.module('UncleApp', ['ngRoute'])
         };
         $timeout(function(){
             $scope.show_video = false;
+            angular.element('#video').prop('muted', true)
             $scope.focus();
         }, 10000);
     };
