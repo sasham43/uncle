@@ -4,8 +4,8 @@ const path = require('path');
 const GoogleAssistant = require('google-assistant');
 const config = {
   auth: {
-    // keyFilePath: path.resolve(__dirname, 'credentials.json'),
-    keyFilePath: path.resolve('/home/pi/.config/google-oauthlib-tool/credentials.json'),
+    keyFilePath: path.resolve(__dirname, 'credentials-new.json'),
+    // keyFilePath: path.resolve('/home/pi/.config/google-oauthlib-tool/credentials.json'),
     // where you want the tokens to be saved
     // will create the directory if not already there
     savedTokensPath: path.resolve(__dirname, 'tokens.json'),
