@@ -46,7 +46,7 @@ router.get('/message/:message', function(req, res, next){
           .on('error', (error) => {
               console.log('assistant error', error);
               // d.reject(err);
-              next(err);
+              next(error);
           });
     })
     // .then(function(resp){
