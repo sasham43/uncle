@@ -27,6 +27,8 @@ const config = {
 
 const assistant = new GoogleAssistant(config.auth);
 
+console.log('assistant', assistant)
+
 router.get('/message/:message', function(req, res, next){
     // start the conversation
     console.log('conversating', req.params.message);
