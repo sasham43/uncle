@@ -4,3 +4,6 @@ src/config/credentials.json
 src/credentials.json
 src/tokens.json
 src/.env
+src/credentials-new.json
+src/credentials-old.json
+src/credentials-other.json
